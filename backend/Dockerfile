@@ -1,19 +1,22 @@
-# Dockerfile for AWS ECS / Fargate Deployment
+# ============================================
+# VaidyaMitra Backend — Production Dockerfile
+# ============================================
 
-# Use official AWS base image for Python 3.11
-FROM public.ecr.aws/docker/library/python:3.11-slim
+FROM python:3.11-slim
 
-# Set environment variables
+# Environment
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONPATH=/app
 
-# Set work directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies (OpenCV, Tesseract, curl for healthcheck)
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends gcc libc-dev \
+    && apt-get install -y --no-install-recommends \
+    gcc libc-dev curl \
+    libgl1-mesa-glx libglib2.0-0 \
+    tesseract-ocr \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -24,8 +27,16 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
+# Create non-root user
+RUN useradd --create-home appuser
+USER appuser
+
 # Expose API port
 EXPOSE 8000
 
-# Start Uvicorn server
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 --start-period=15s \
+    CMD curl -f http://localhost:8000/api/v1/health || exit 1
+
+# Start Uvicorn (production: no reload, 4 workers)
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
