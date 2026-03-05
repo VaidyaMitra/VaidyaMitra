@@ -62,5 +62,9 @@ next-env.d.ts
 # Docker
 docker-compose.override.yml
 
+# Archives / Deployment artifacts
+*.tar.gz
+*.zip
+
 # Misc
 .vercel
