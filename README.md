@@ -465,7 +465,7 @@ VaidyaMitra follows a **privacy-first architecture** where all PII/PHI is masked
 
 ## 📸 Screenshots
 
-*Coming soon — Deploy and capture screenshots of all 10 pages*
+*Coming soon !!*
 
 ---
 
