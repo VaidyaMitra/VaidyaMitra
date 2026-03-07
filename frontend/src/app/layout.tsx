@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
 import { ThemeProvider } from "@/lib/ThemeProvider";
+import { RoleProvider } from "@/lib/RoleContext";
+import AppLayout from "@/components/AppLayout";
 
 const outfit = Outfit({
     subsets: ["latin"],
@@ -40,12 +41,11 @@ export default function RootLayout({
             </head>
             <body className={`${outfit.variable} font-sans`}>
                 <ThemeProvider>
-                    <div className="flex min-h-screen">
-                        <Sidebar />
-                        <main className="flex-1">
+                    <RoleProvider>
+                        <AppLayout>
                             {children}
-                        </main>
-                    </div>
+                        </AppLayout>
+                    </RoleProvider>
                 </ThemeProvider>
             </body>
         </html>

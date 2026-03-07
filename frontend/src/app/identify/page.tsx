@@ -103,7 +103,7 @@ export default function IdentifyPage() {
     const med = result?.medicine;
 
     return (
-        <main className="ml-[280px] min-h-screen p-8 lg:p-12 transition-colors duration-200 bg-[var(--bg-main)]">
+        <main className="min-h-screen p-8 lg:p-12 transition-colors duration-200 bg-[var(--bg-main)]">
             <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[var(--text-primary)] mb-2">🧪 Medicine Identifier</h1>
             <p className="text-base text-[var(--text-secondary)] font-medium mb-8">Identify any medicine — get full details, Jan Aushadhi comparison, and savings</p>
 

@@ -73,7 +73,7 @@ export default function PredictPage() {
     const reasoning = (data?.reasoning_steps || []) as Array<{ step_number: number; description: string; evidence: string; confidence: number }>;
 
     return (
-        <main className="ml-[280px] min-h-screen p-8 lg:p-12 transition-colors duration-200 bg-[var(--bg-main)]">
+        <main className="min-h-screen p-8 lg:p-12 transition-colors duration-200 bg-[var(--bg-main)]">
             <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[var(--text-primary)] mb-2">🔬 Disease Prediction</h1>
             <p className="text-base text-[var(--text-secondary)] font-medium mb-8">AI-powered disease risk assessment · Select symptoms for analysis</p>
 

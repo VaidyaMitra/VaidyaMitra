@@ -2,38 +2,66 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useTheme } from '@/lib/ThemeProvider';
-
-const navSections = [
-    {
-        label: 'CLINICAL',
-        items: [
-            { href: '/', label: 'Dashboard', icon: '🏥' },
-            { href: '/patients', label: 'Patients', icon: '👤' },
-            { href: '/clinical', label: 'Clinical Data', icon: '📋' },
-            { href: '/records', label: 'Medical Records', icon: '🔒' },
-        ],
-    },
-    {
-        label: 'AI TOOLS',
-        items: [
-            { href: '/reports', label: 'Report Simplifier', icon: '📄' },
-            { href: '/predict', label: 'Disease Prediction', icon: '🔬' },
-            { href: '/medicine', label: 'Generic Medicine', icon: '💊' },
-            { href: '/identify', label: 'Medicine Identifier', icon: '🧪' },
-        ],
-    },
-    {
-        label: 'ASSISTANT',
-        items: [
-            { href: '/query', label: 'AI Query', icon: '🤖' },
-            { href: '/voice', label: 'Voice Query', icon: '🎤' },
-        ],
-    },
-];
+import { useRole } from '@/lib/RoleContext';
 
 export default function Sidebar() {
     const pathname = usePathname();
     const { toggleTheme, isDark } = useTheme();
+    const { role, setRole } = useRole();
+
+    let navSections = [];
+
+    if (role === 'doctor') {
+        navSections = [
+            {
+                label: 'CLINICAL',
+                items: [
+                    { href: '/', label: 'Overview', icon: '📊' },
+                    { href: '/patients', label: 'Patient Management', icon: '👤' },
+                    { href: '/clinical', label: 'Clinical Data', icon: '📋' },
+                    { href: '/records', label: 'Medical Records', icon: '🔒' },
+                ],
+            },
+            {
+                label: 'AI TOOLS',
+                items: [
+                    { href: '/reports', label: 'Report Simplifier', icon: '📄' },
+                ],
+            },
+            {
+                label: 'ASSISTANT',
+                items: [
+                    { href: '/query', label: 'AI Query', icon: '🤖' },
+                    { href: '/voice', label: 'Voice Query', icon: '🎤' },
+                ],
+            },
+        ];
+    } else {
+        navSections = [
+            {
+                label: 'PATIENT PORTAL',
+                items: [
+                    { href: '/', label: 'Dashboard', icon: '📊' },
+                ],
+            },
+            {
+                label: 'HEALTH TOOLS',
+                items: [
+                    { href: '/reports', label: 'Report Simplifier', icon: '📄' },
+                    { href: '/predict', label: 'Disease Prediction', icon: '🔬' },
+                    { href: '/medicine', label: 'Generic Medicine', icon: '💊' },
+                    { href: '/identify', label: 'Medicine Identifier', icon: '🧪' },
+                ],
+            },
+            {
+                label: 'ASSISTANT',
+                items: [
+                    { href: '/query', label: 'AI Query', icon: '🤖' },
+                    { href: '/voice', label: 'Voice Query', icon: '🎤' },
+                ],
+            },
+        ];
+    }
 
     return (
         <aside className="fixed left-0 top-0 z-50 flex h-screen w-[280px] flex-col overflow-y-auto bg-[var(--bg-sidebar)] border-r border-[var(--border-sidebar)] transition-colors duration-300">
@@ -84,8 +112,15 @@ export default function Sidebar() {
                 ))}
             </nav>
 
-            {/* Theme Toggle + Footer */}
-            <div className="px-5 py-4 border-t border-[var(--border-sidebar)] bg-[var(--bg-sidebar)]">
+            {/* Theme Toggle + Switch Role + Footer */}
+            <div className="px-5 py-4 border-t border-[var(--border-sidebar)] bg-[var(--bg-sidebar)] flex flex-col gap-3">
+                <button
+                    onClick={() => setRole(null)}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-[var(--border-glass)] bg-[var(--bg-card-hover)] px-3.5 py-2.5 text-[13px] font-bold text-sky-500 transition-all duration-200 hover:border-sky-500 hover:bg-sky-500 hover:text-white outline-none shadow-sm"
+                >
+                    <span className="text-lg">🔄</span> Switch Role
+                </button>
+
                 <button
                     onClick={toggleTheme}
                     className="flex w-full items-center gap-3 rounded-xl border border-[var(--border-glass)] bg-[var(--bg-card-hover)] px-3.5 py-2.5 text-[13px] font-medium text-[var(--text-secondary)] transition-all duration-200 hover:border-[var(--text-muted)] hover:text-[var(--text-primary)] outline-none"
@@ -104,11 +139,9 @@ export default function Sidebar() {
                     </div>
                 </button>
 
-                <div className="mt-4 text-center text-[11px] font-medium text-[var(--text-muted)]">
+                <div className="mt-2 text-center text-[11px] font-medium text-[var(--text-muted)]">
                     <div>🔐 AI-Powered | Privacy-First</div>
-                    <div className="mt-1 flex items-center justify-center gap-1 opacity-80">
-                        Made for Bharat 🇮🇳
-                    </div>
+                    <div className="mt-1 opacity-80">Made for Bharat 🇮🇳</div>
                 </div>
             </div>
         </aside>

@@ -85,7 +85,6 @@ const panel: CSSProperties = {
 };
 
 const mainContent: CSSProperties = {
-    marginLeft: '280px',
     minHeight: '100vh',
     padding: '32px 48px',
     background: 'var(--bg-main)',

@@ -258,7 +258,7 @@ export default function ClinicalPage() {
     };
 
     return (
-        <main className="ml-[280px] min-h-screen p-8 lg:p-12 transition-colors duration-200 bg-[var(--bg-main)]">
+        <main className="min-h-screen p-8 lg:p-12 transition-colors duration-200 bg-[var(--bg-main)]">
             <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[var(--text-primary)] mb-2">📋 Clinical Data Entry</h1>
             <p className="text-base text-[var(--text-secondary)] font-medium mb-8">Comprehensive clinical intake form · PII/PHI masked via DataGuard before AI processing</p>
 
@@ -455,14 +455,10 @@ export default function ClinicalPage() {
                         <h3 className="text-xl font-bold text-emerald-600 dark:text-emerald-400 m-0">Clinical Data Submitted Successfully</h3>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-[var(--bg-body)] rounded-xl p-5 border border-[var(--border-glass)]">
-                        <div>
-                            <span className="text-[10px] font-bold tracking-widest uppercase text-[var(--text-muted)]">VISIT ID</span>
-                            <p className="font-mono text-[14px] font-bold text-[var(--text-primary)] mt-1.5">{String((result as Record<string, unknown>).visit_id || '—')}</p>
-                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-[var(--bg-body)] rounded-xl p-5 border border-[var(--border-glass)]">
                         <div>
                             <span className="text-[10px] font-bold tracking-widest uppercase text-[var(--text-muted)]">PATIENT ID</span>
-                            <p className="font-mono text-[14px] font-bold text-sky-500 mt-1.5">{String((result as Record<string, unknown>).patient_id || '—')}</p>
+                            <p className="font-mono text-[14px] font-bold text-sky-500 mt-1.5">{String((result as any).data?.patient_id || '—')}</p>
                         </div>
                         <div>
                             <span className="text-[10px] font-bold tracking-widest uppercase text-[var(--text-muted)]">PRIVACY</span>
@@ -473,7 +469,7 @@ export default function ClinicalPage() {
                         <div>
                             <span className="text-[10px] font-bold tracking-widest uppercase text-[var(--text-muted)]">PII MASKED</span>
                             <p className="text-[14px] font-bold text-amber-500 mt-1.5 bg-amber-500/10 px-2 py-0.5 rounded-md inline-block">
-                                {String((result as Record<string, unknown>).entities_masked || 0)} entities
+                                {String((result as any).data?.entities_masked || 0)} entities
                             </p>
                         </div>
                     </div>

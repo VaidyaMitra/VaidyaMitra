@@ -1,25 +1,8 @@
 'use client';
 import Link from 'next/link';
+import { useRole } from '@/lib/RoleContext';
 
-const stats = [
-    { label: 'Patients Registered', value: '1,247', icon: '👤', color: 'text-sky-600', bg: 'bg-sky-50 dark:bg-sky-500/10', border: 'border-sky-100 dark:border-sky-500/20', trend: '+12 today' },
-    { label: 'Reports Simplified', value: '856', icon: '📄', color: 'text-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-500/10', border: 'border-emerald-100 dark:border-emerald-500/20', trend: '+5 today' },
-    { label: 'PII Entities Masked', value: '34,291', icon: '🔐', color: 'text-amber-600', bg: 'bg-amber-50 dark:bg-amber-500/10', border: 'border-amber-100 dark:border-amber-500/20', trend: '100% enforced' },
-    { label: 'Savings Generated', value: '₹4.2L', icon: '💊', color: 'text-indigo-600', bg: 'bg-indigo-50 dark:bg-indigo-500/10', border: 'border-indigo-100 dark:border-indigo-500/20', trend: 'Jan Aushadhi' },
-];
-
-const features = [
-    { icon: '👤', title: 'Patient Management', desc: 'Register, assign VM-IDs, track visits', href: '/patients', color: 'text-sky-500' },
-    { icon: '📋', title: 'Clinical Data', desc: 'Comprehensive clinical intake with OCR auto-fill', href: '/clinical', color: 'text-blue-500' },
-    { icon: '🔒', title: 'Medical Records', desc: 'Privacy-masked EHR-style records viewer', href: '/records', color: 'text-indigo-500' },
-    { icon: '📄', title: 'Report Simplifier', desc: 'AI converts complex reports to easy language', href: '/reports', color: 'text-amber-500' },
-    { icon: '🔬', title: 'Disease Prediction', desc: 'Symptom-based AI risk assessment', href: '/predict', color: 'text-pink-500' },
-    { icon: '💊', title: 'Jan Aushadhi', desc: 'Affordable generic medicine alternatives', href: '/medicine', color: 'text-emerald-500' },
-    { icon: '🧪', title: 'Medicine Identifier', desc: 'Identify & compare branded vs generic', href: '/identify', color: 'text-blue-500' },
-    { icon: '🎤', title: 'Voice Query', desc: 'Speak in 9 Indian languages — AI responds', href: '/voice', color: 'text-orange-500' },
-    { icon: '🤖', title: 'AI Query', desc: 'Agentic RAG-grounded clinical assistant', href: '/query', color: 'text-cyan-500' },
-];
-
+/* ================== SHARED MODULES ================== */
 const systemModules = [
     { icon: '🔐', name: 'DataGuard Privacy', detail: 'MS Presidio · Aadhaar/PAN/PHI masking', dot: 'bg-red-500' },
     { icon: '🧠', name: 'Clinical Engine', detail: 'Summary · Change Detection · OCR', dot: 'bg-blue-500' },
@@ -30,25 +13,74 @@ const systemModules = [
     { icon: '🌐', name: 'Multilingual', detail: '9 Indian languages + English', dot: 'bg-cyan-500' },
 ];
 
-const activity = [
+/* ================== DOCTOR DATA ================== */
+const docStats = [
+    { label: 'Patients Registered', value: '1,247', icon: '👤', color: 'text-sky-600', bg: 'bg-sky-50 dark:bg-sky-500/10', border: 'border-sky-100 dark:border-sky-500/20', trend: '+12 today' },
+    { label: 'Visits Recorded', value: '3,892', icon: '🏥', color: 'text-indigo-600', bg: 'bg-indigo-50 dark:bg-indigo-500/10', border: 'border-indigo-100 dark:border-indigo-500/20', trend: '+45 today' },
+    { label: 'Reports Simplified', value: '856', icon: '📄', color: 'text-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-500/10', border: 'border-emerald-100 dark:border-emerald-500/20', trend: '+5 today' },
+    { label: 'PII Entities Masked', value: '34,291', icon: '🔐', color: 'text-amber-600', bg: 'bg-amber-50 dark:bg-amber-500/10', border: 'border-amber-100 dark:border-amber-500/20', trend: '100% enforced' },
+];
+
+const docFeatures = [
+    { icon: '👤', title: 'Patient Management', desc: 'Register, assign VM-IDs, track visits', href: '/patients', color: 'text-sky-500' },
+    { icon: '📋', title: 'Clinical Data', desc: 'Comprehensive clinical intake with OCR auto-fill', href: '/clinical', color: 'text-blue-500' },
+    { icon: '🔒', title: 'Medical Records', desc: 'Privacy-masked EHR-style records viewer', href: '/records', color: 'text-indigo-500' },
+    { icon: '📄', title: 'Report Simplifier', desc: 'AI converts complex reports to easy language', href: '/reports', color: 'text-amber-500' },
+    { icon: '🎤', title: 'Voice Query', desc: 'Speak in 9 Indian languages — AI responds', href: '/voice', color: 'text-orange-500' },
+    { icon: '🤖', title: 'AI Query', desc: 'Agentic RAG-grounded clinical assistant', href: '/query', color: 'text-cyan-500' },
+];
+
+const docActivity = [
     { text: 'Patient VM-R4K92F registered with Aadhaar verification', dot: 'bg-sky-500', time: '1m' },
     { text: 'Lab report OCR extracted — 14 fields auto-filled', dot: 'bg-blue-500', time: '3m' },
     { text: 'Medical report simplified to Grade 6 readability', dot: 'bg-emerald-500', time: '5m' },
-    { text: 'Generic alternative: Augmentin → Amoxyclav (79% savings)', dot: 'bg-emerald-500', time: '7m' },
     { text: '8 PII entities masked via DataGuard before AI processing', dot: 'bg-amber-500', time: '9m' },
-    { text: 'Voice query processed in Hindi → response translated', dot: 'bg-orange-500', time: '12m' },
 ];
 
+/* ================== PATIENT DATA ================== */
+const patStats = [
+    { label: 'Reports Simplified', value: '14', icon: '📄', color: 'text-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-500/10', border: 'border-emerald-100 dark:border-emerald-500/20', trend: 'Latest: CBC Test' },
+    { label: 'Savings Generated', value: '₹4,250', icon: '💊', color: 'text-indigo-600', bg: 'bg-indigo-50 dark:bg-indigo-500/10', border: 'border-indigo-100 dark:border-indigo-500/20', trend: 'Jan Aushadhi' },
+    { label: 'Queries Answered', value: '89', icon: '🤖', color: 'text-sky-600', bg: 'bg-sky-50 dark:bg-sky-500/10', border: 'border-sky-100 dark:border-sky-500/20', trend: '2 in Marathi' },
+    { label: 'Health Score', value: 'Good', icon: '❤️', color: 'text-pink-600', bg: 'bg-pink-50 dark:bg-pink-500/10', border: 'border-pink-100 dark:border-pink-500/20', trend: 'Stable' },
+];
+
+const patFeatures = [
+    { icon: '📄', title: 'Report Simplifier', desc: 'Convert complex lab reports to plain language', href: '/reports', color: 'text-emerald-500' },
+    { icon: '🔬', title: 'Disease Prediction', desc: 'Symptom-based AI risk assessment', href: '/predict', color: 'text-pink-500' },
+    { icon: '💊', title: 'Jan Aushadhi', desc: 'Find affordable generic medicine alternatives', href: '/medicine', color: 'text-indigo-500' },
+    { icon: '🧪', title: 'Medicine Identifier', desc: 'Identify & compare branded vs generic', href: '/identify', color: 'text-blue-500' },
+    { icon: '🤖', title: 'AI Assistant', desc: 'Ask any health question 24/7', href: '/query', color: 'text-cyan-500' },
+    { icon: '🎤', title: 'Voice Query', desc: 'Ask questions in your regional language', href: '/voice', color: 'text-orange-500' },
+];
+
+const patActivity = [
+    { text: 'Downloaded simplified explanation of Lipid Profile', dot: 'bg-emerald-500', time: '2 hrs ago' },
+    { text: 'Found generic alternative: Augmentin → Amoxyclav (79% savings)', dot: 'bg-indigo-500', time: '1 day ago' },
+    { text: 'Voice query processed in Hindi: "Diabetes ke lakshan kya hain?"', dot: 'bg-orange-500', time: '2 days ago' },
+];
+
+
 export default function Dashboard() {
+    const { role } = useRole();
+    const isDoctor = role === 'doctor';
+
+    const stats = isDoctor ? docStats : patStats;
+    const features = isDoctor ? docFeatures : patFeatures;
+    const activity = isDoctor ? docActivity : patActivity;
+
     return (
-        <main className="ml-[280px] min-h-screen p-8 lg:p-12 transition-colors duration-200 bg-[var(--bg-main)]">
+        <main className="min-h-screen p-8 lg:p-12 transition-colors duration-200 bg-[var(--bg-main)]">
             {/* Header */}
             <div className="mb-10">
                 <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[var(--text-primary)] transition-colors">
-                    Welcome to <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-blue-600">VaidyaMitra</span>
+                    {isDoctor ? 'Doctor Overview' : 'Patient Dashboard'}
                 </h1>
                 <p className="mt-2 text-base text-[var(--text-muted)] font-medium">
-                    Privacy-first clinical intelligence · AI-powered healthcare for Bharat 🇮🇳
+                    {isDoctor
+                        ? 'Privacy-first clinical intelligence & practice management'
+                        : 'Your personalized health insights & affordable medicine tools'
+                    }
                 </p>
             </div>
 
@@ -88,25 +120,27 @@ export default function Dashboard() {
             </div>
 
             {/* Bottom Section */}
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                {/* Architecture */}
-                <div className="p-6 md:p-8 rounded-2xl bg-[var(--bg-glass)] border border-[var(--border-glass)] shadow-[var(--shadow-card)]">
-                    <h3 className="flex items-center gap-2 text-[15px] font-bold text-[var(--text-primary)] mb-6">
-                        <span>⚙️</span> System Architecture
-                    </h3>
-                    <div className="space-y-1">
-                        {systemModules.map((s, i) => (
-                            <div key={i} className="flex items-center gap-4 py-3 border-b border-[var(--border-glass)] last:border-0 hover:bg-[var(--bg-card-hover)] px-2 -mx-2 rounded-lg transition-colors">
-                                <div className={`w-2 h-2 rounded-full flex-shrink-0 ${s.dot} shadow-sm`} />
-                                <span className="text-lg flex-shrink-0">{s.icon}</span>
-                                <div className="min-w-0 flex-1">
-                                    <div className="text-[14px] font-semibold text-[var(--text-primary)]">{s.name}</div>
-                                    <div className="text-xs text-[var(--text-muted)] mt-0.5">{s.detail}</div>
+            <div className={`grid grid-cols-1 ${isDoctor ? 'xl:grid-cols-2' : ''} gap-8`}>
+                {/* Architecture (Only shown to doctor for technical detail) */}
+                {isDoctor && (
+                    <div className="p-6 md:p-8 rounded-2xl bg-[var(--bg-glass)] border border-[var(--border-glass)] shadow-[var(--shadow-card)]">
+                        <h3 className="flex items-center gap-2 text-[15px] font-bold text-[var(--text-primary)] mb-6">
+                            <span>⚙️</span> System Architecture
+                        </h3>
+                        <div className="space-y-1">
+                            {systemModules.map((s, i) => (
+                                <div key={i} className="flex items-center gap-4 py-3 border-b border-[var(--border-glass)] last:border-0 hover:bg-[var(--bg-card-hover)] px-2 -mx-2 rounded-lg transition-colors">
+                                    <div className={`w-2 h-2 rounded-full flex-shrink-0 ${s.dot} shadow-sm`} />
+                                    <span className="text-lg flex-shrink-0">{s.icon}</span>
+                                    <div className="min-w-0 flex-1">
+                                        <div className="text-[14px] font-semibold text-[var(--text-primary)]">{s.name}</div>
+                                        <div className="text-xs text-[var(--text-muted)] mt-0.5">{s.detail}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 {/* Activity */}
                 <div className="p-6 md:p-8 rounded-2xl bg-[var(--bg-glass)] border border-[var(--border-glass)] shadow-[var(--shadow-card)]">
