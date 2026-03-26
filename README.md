@@ -21,8 +21,11 @@
 
 <br />
 
-> 📸 **Dashboard Overview:** Executive Clinical Summary with live patient insights.
-> ![Dashboard Overview](assets/screenshots/01-dashboard.png)
+> 📸 **Platform Overview:** Role-Based Access and Welcome Portal.
+> ![Overview](assets/screenshots/Overview.png)
+>
+> 📸 **Dashboard Analytics:** Executive Clinical Summary with live patient insights.
+> ![Dashboard Analytics](assets/screenshots/Dashboard.png)
 
 ## Table of Contents
 
@@ -236,15 +239,15 @@ Below is a detailed look at the 10 distinct modules of the VaidyaMitra platform 
 
 | Module Area | Screenshot Demonstration |
 |-------------|----------------------------|
-| **Patient Management**<br/>Complete tracking of the patient lifecycle | ![Patients](assets/screenshots/02-patients.png) |
-| **Clinical Data**<br/>Streamlined patient symptom & vitals intake | ![Clinical](assets/screenshots/03-clinical.png) |
-| **Medical Records**<br/>EHR-style holistic timeline organization | ![Records](assets/screenshots/04-records.png) |
-| **Report Simplifier**<br/>AI-driven jargon translation (Grade 6 target level) | ![Reports](assets/screenshots/05-reports.png) |
-| **Disease Prediction**<br/>Symptom-based analytical pattern modeling | ![Predict](assets/screenshots/06-predict.png) |
-| **Generic Medicine**<br/>Jan Aushadhi (PMBJP) savings engine calculation | ![Medicine](assets/screenshots/07-medicine.png) |
-| **Medicine Identifier**<br/>Deep Branded vs Generic clinical composition reviews | ![Identify](assets/screenshots/08-identify.png) |
-| **Voice Query**<br/>9 Locale Multilingual Speech-to-Text inference | ![Voice](assets/screenshots/09-voice.png) |
-| **AI Query**<br/>RAG-equipped Agentic UI built directly on Bedrock | ![Query](assets/screenshots/10-query.png) |
+| **Patient Management**<br/>Complete tracking of the patient lifecycle | ![Patients](assets/screenshots/PatientManagement.png) |
+| **Clinical Data**<br/>Streamlined patient symptom & vitals intake | ![Clinical](assets/screenshots/ClinicalData.png) |
+| **Medical Records**<br/>EHR-style holistic timeline organization | ![Records](assets/screenshots/MedicalRecords.png) |
+| **Report Simplifier**<br/>AI-driven jargon translation (Grade 6 target level) | ![Reports](assets/screenshots/ReportSimplifier.png) |
+| **Disease Prediction**<br/>Symptom-based analytical pattern modeling | ![Predict](assets/screenshots/DiseasePrediction.png) |
+| **Generic Medicine**<br/>Jan Aushadhi (PMBJP) savings engine calculation | ![Medicine](assets/screenshots/GenericMedicine.png) |
+| **Medicine Identifier**<br/>Deep Branded vs Generic clinical composition reviews | ![Identify](assets/screenshots/MedicineIdentifier.png) |
+| **Voice Query**<br/>9 Locale Multilingual Speech-to-Text inference | ![Voice](assets/screenshots/Voice.png) |
+| **AI Query**<br/>RAG-equipped Agentic UI built directly on Bedrock | ![Query](assets/screenshots/Query.png) |
 
 ---
 
